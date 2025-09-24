@@ -1,0 +1,10 @@
+{
+  "userlogin": {
+    "qa_testuser1": {
+      "envname": "qa",
+      "baseUrl": "https://automationintesting.online/",      
+      "login": "login",
+      "password": "password"
+    }
+  }  
+}

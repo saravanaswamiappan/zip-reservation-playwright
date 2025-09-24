@@ -1,0 +1,235 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "reservation-features;verify-the-room-features-and-make-a-reservation",
+        "keyword": "Scenario",
+        "line": 8,
+        "name": "Verify the room features and make a reservation",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 771198199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 6,
+            "name": "User lands on Home page",
+            "match": {
+              "location": "step_definitions\\reservation.js:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8240281399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 9,
+            "name": "Room listing is displayed",
+            "match": {
+              "location": "step_definitions\\reservation.js:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 32660700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "There should be atleast one room without TV feature",
+            "match": {
+              "location": "step_definitions\\reservation.js:36"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26194199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 11,
+            "name": "Enter dates and click book now",
+            "match": {
+              "location": "step_definitions\\reservation.js:51"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 6918320200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "reservation is tried with short firstname",
+            "match": {
+              "location": "step_definitions\\reservation.js:58"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9171105799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "appropriate error message is thrown for firstname",
+            "match": {
+              "location": "step_definitions\\reservation.js:91"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4647700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "reservation is tried with long firstname",
+            "match": {
+              "location": "step_definitions\\reservation.js:64"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9187816999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "appropriate error message is thrown for firstname",
+            "match": {
+              "location": "step_definitions\\reservation.js:91"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4017300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 16,
+            "name": "reservation is tried with short lastname",
+            "match": {
+              "location": "step_definitions\\reservation.js:71"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9162008399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "appropriate error message is thrown for lastname",
+            "match": {
+              "location": "step_definitions\\reservation.js:95"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3405899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 18,
+            "name": "reservation is tried with long lastname",
+            "match": {
+              "location": "step_definitions\\reservation.js:77"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9197734799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 19,
+            "name": "appropriate error message is thrown for lastname",
+            "match": {
+              "location": "step_definitions\\reservation.js:95"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5711300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 20,
+            "name": "reservation is tried with valid details",
+            "match": {
+              "location": "step_definitions\\reservation.js:84"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9190741800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 21,
+            "name": "reservation should be booked successfully",
+            "match": {
+              "location": "step_definitions\\reservation.js:99"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 822743300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 22,
+            "name": "reserved dates should be same as intended booking dates",
+            "match": {
+              "location": "step_definitions\\reservation.js:103"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3691500
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 64850399
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "reservation-features",
+    "line": 3,
+    "keyword": "Feature",
+    "name": "Reservation features",
+    "tags": [],
+    "uri": "features\\reservation\\reservation.feature"
+  }
+]
