@@ -3,7 +3,6 @@ const config = require('../config.json');
 const { createBdd } = require('playwright-bdd');
 const { Given, When, Then } = createBdd();
 const { expect } = require('@playwright/test');
-const { faker } = require('@faker-js/faker');
 const { homePage } = require('../page-objects/homePage.js')
 const { reservationPage } = require('../page-objects/reservationPage.js')
 const { datesHelper } = require('../fixtures/Helpers/datesHelper.js')
@@ -17,16 +16,15 @@ const Reservationpage = new reservationPage();
 const Dateshelper = new datesHelper();
 const ContactHelper = new contactHelper();
 
-let loginuser;
 let dates;
 let numberofrooms = 0;
 let numberofroomswithtv = 0;
 
 
 Given('User lands on Home page', async ({ page })  => {
-    //await Homepage.open('https://your-url.com', page);
+    
     await page.goto(config.Url);
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(10000);
 });
 
 When('Room listing is displayed', async ({ page })  => {
@@ -34,7 +32,7 @@ When('Room listing is displayed', async ({ page })  => {
 });
 
 Then('There should be atleast one room without TV feature', async ({ page })  => {
-    //let numberofroomswithtv = 0;
+
     for (let i = 1; i <= numberofrooms; i++) {
         const featurecount = await Homepage.getroomfeaturesnthcount(page,i);
         for (let j = 1; j <= featurecount; j++) {

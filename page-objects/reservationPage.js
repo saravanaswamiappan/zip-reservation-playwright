@@ -18,7 +18,7 @@ class reservationPage {
 
     async clickreservenowconfirmBtn(page) {
         await page.click(this.elements.reservenowconfirmBtn());
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(8000);
     }
 
     async typefirstnameInputtxt(page, firstname) {
