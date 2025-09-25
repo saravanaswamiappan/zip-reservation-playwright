@@ -1,4 +1,4 @@
-const { setWorldConstructor } = require('@cucumber/cucumber');
+const { setWorldConstructor } = require('playwright-bdd');
 const { chromium } = require('playwright');
 
 class CustomWorld {

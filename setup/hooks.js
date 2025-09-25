@@ -1,4 +1,4 @@
-const { Before, After, BeforeAll, AfterAll, setDefaultTimeout } = require("@cucumber/cucumber");
+const { Before, After, BeforeAll, AfterAll, setDefaultTimeout } = require('playwright-bdd');
 
 setDefaultTimeout(60000);
 
