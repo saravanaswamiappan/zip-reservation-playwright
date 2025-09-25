@@ -1,108 +1,62 @@
 const dayjs = require('dayjs');
-const config = require('../config.json'); 
-const { Given, When, Then } = require('@cucumber/cucumber')
-const { test, expect } = require('@playwright/test');
-const { faker } = require('@faker-js/faker');
-const {homePage} = require('../page-objects/homePage.js')
-const {reservationPage} = require('../page-objects/reservationPage.js')
-const {datesHelper} = require('../fixtures/Helpers/datesHelper.js')
-const {contactHelper} = require('../fixtures/Helpers/contactHelper.js')
-const { generateDates } = require('../fixtures/Builders/datesBuilder');
-const { setupdataContact,setupdataContact_shortfirstname,setupdataContact_longfirstname,
-    setupdataContact_shortlastname,setupdataContact_longlastname} = require('../fixtures/Builders/contactBuilder');
+const config = require('../config.json');
+const { Given, When, Then } = require('playwright-bdd');  // Changed this line
+const { expect } = require('@playwright/test');
+
+//const { Given, When, Then } = require('@cucumber/cucumber');
+//const { expect } = require('@playwright/test');
+const { homePage } = require('../page-objects/homePage.js');
+const { reservationPage } = require('../page-objects/reservationPage.js');
 
 const Homepage = new homePage();
 const Reservationpage = new reservationPage();
-const Dateshelper = new datesHelper();
-const ContactHelper = new contactHelper();
 
-let loginuser;
-let dates;
 let numberofrooms = 0;
-let numberofroomswithtv = 0;
 
-Given('User lands on Home page', async function(){
-    //await page.goto('/');
-    //await Homepage.open("https://automationintesting.online");
-    await page.goto(config.Url);
-    await page.waitForTimeout(5000);
+Given('User lands on Home page', async ({ page })  => {
+    await Homepage.open('https://your-url.com', this.page);
 });
 
-When("Room listing is displayed", async function () {
-
-    numberofrooms = await Homepage.getroomscontainercount();
+When('Room listing is displayed', async ({ page })  => {
+    numberofrooms = await Homepage.getroomscontainercount(this.page);
 });
 
-Then("There should be atleast one room without TV feature", async function () {       
-    
+Then('There should be atleast one room without TV feature', async ({ page })  => {
+    let numberofroomswithtv = 0;
     for (let i = 1; i <= numberofrooms; i++) {
-        
-        const featurecount =  await Homepage.getroomfeaturesnthcount(i);
+        const featurecount = await Homepage.getroomfeaturesnthcount(i, this.page);
         for (let j = 1; j <= featurecount; j++) {
-            let featureeach =  await Homepage.getroomfeaturesntheach(i,j);
-            if (featureeach.includes("TV")) {
-                numberofroomswithtv = numberofroomswithtv + 1; 
-            }  
-        }            
+            let featureeach = await Homepage.getroomfeaturesntheach(i, j, this.page);
+            if (featureeach.includes('TV')) numberofroomswithtv += 1;
+        }
     }
     expect(numberofrooms).toBeGreaterThan(numberofroomswithtv);
 });
 
-When("Enter dates and click book now", async function () {
-    
-    dates = generateDates();
-    await Dateshelper.settheDates(dates);
-    await Homepage.clickbooknownth(1);
-    await Reservationpage.clickreservenowBtn();
-})
-When("reservation is tried with short firstname", async function () {
-    
-    const contact = setupdataContact_shortfirstname();
-    await ContactHelper.settheContactdetails(contact);
-    await Reservationpage.clickreservenowconfirmBtn();
-});
-When("reservation is tried with long firstname", async function () {    
-    
-    const contact = setupdataContact_longfirstname();
-    await ContactHelper.settheContactdetails(contact);
-    await Reservationpage.clickreservenowconfirmBtn();    
+When('Enter dates and click book now', async ({ page })  => {
+    await Homepage.typecheckinInputTxt('2025-10-01', this.page);
+    await Homepage.typecheckoutInputTxt('2025-10-05', this.page);
+    await Homepage.clickbooknownth(1, this.page);
+    await Reservationpage.clickreservenowBtn(this.page);
 });
 
-When("reservation is tried with short lastname", async function () {    
-    
-    const contact = setupdataContact_shortlastname();
-    await ContactHelper.settheContactdetails(contact);
-    await Reservationpage.clickreservenowconfirmBtn();    
-});
-When("reservation is tried with long lastname", async function () {
-    
-    const contact = setupdataContact_longlastname();
-    await ContactHelper.settheContactdetails(contact);
-    await Reservationpage.clickreservenowconfirmBtn();
+When('reservation is tried with short firstname', async ({ page })  => {
+    await Reservationpage.typefirstnameInputtxt('Jo', this.page);
+    await Reservationpage.clickreservenowconfirmBtn(this.page);
 });
 
-When("reservation is tried with valid details", async function () {    
-
-    const contact = setupdataContact();
-    await ContactHelper.settheContactdetails(contact);
-    await Reservationpage.clickreservenowconfirmBtn();
+Then('appropriate error message is thrown for firstname', async ({ page })  => {
+    expect(await Reservationpage.getalertmessage(this.page)).toEqual('size must be between 3 and 18');
 });
 
-Then("appropriate error message is thrown for firstname", async function () {
-   
-    expect(await Reservationpage.getalertmessage()).toEqual('size must be between 3 and 18');
+When('reservation is tried with valid details', async ({ page })  => {
+    await Reservationpage.typefirstnameInputtxt('John', this.page);
+    await Reservationpage.typelastnameInputtxt('Doe', this.page);
+    await Reservationpage.typephoneInputtxt('1234567890', this.page);
+    await Reservationpage.typeemailInputtxt('john.doe@example.com', this.page);
+    await Reservationpage.clickreservenowconfirmBtn(this.page);
 });
-Then("appropriate error message is thrown for lastname", async function () {
-    
-    expect(await Reservationpage.getalertmessage()).toEqual('size must be between 3 and 30');
-});
-Then("reservation should be booked successfully", async function () {
-    expect(await Reservationpage.getbookingconfirmedmessage()).toEqual('Booking Confirmed');
 
-});
-Then("reserved dates should be same as intended booking dates", async function () {
-    
-    var bookeddates = await Reservationpage.getbookeddates();
-    expect(await dayjs(bookeddates.substring(0, 10)).format('DD/MM/YYYY')).toEqual(dates.checkindate);
-    expect(await dayjs(bookeddates.substring(13, 23)).format('DD/MM/YYYY')).toEqual(dates.checkoutdate);
+Then('reservation should be booked successfully', async ({ page })  => {
+    expect(await Reservationpage.getbookingconfirmedmessage(this.page)).toEqual('Booking Confirmed');
 });

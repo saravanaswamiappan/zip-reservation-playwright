@@ -1,6 +1,7 @@
 class reservationPage {
+
     elements = {
-        reservenowBtn: () => '//button[@id="doReservation"]',        
+        reservenowBtn: () => '//button[@id="doReservation"]',
         firstnameInputtxt: () => '//input[@name="firstname"]',
         lastnameInputtxt: () => '//input[@name="lastname"]',
         phoneInputtxt: () => '//input[@name="phone"]',
@@ -9,41 +10,47 @@ class reservationPage {
         alertmessage: () => '//div[@role="alert"]',
         bookingconfirmedmessage: () => '//h2[text()="Booking Confirmed"]',
         bookeddates: () => '//div[@class="card border-0 shadow booking-card"]//strong',
- }
-    async clickreservenowBtn() {        
-        await page.click(this.elements.reservenowBtn()); 
-        
+    };
+
+    async clickreservenowBtn(page) {
+        await page.click(this.elements.reservenowBtn());
     }
-    async clickreservenowconfirmBtn() {
-        await page.click(this.elements.reservenowconfirmBtn()); 
+
+    async clickreservenowconfirmBtn(page) {
+        await page.click(this.elements.reservenowconfirmBtn());
     }
-    async typefirstnameInputtxt(firstname) {
+
+    async typefirstnameInputtxt(page, firstname) {
         await page.fill(this.elements.firstnameInputtxt(), '');
         await page.fill(this.elements.firstnameInputtxt(), firstname);
     }
-    async typelastnameInputtxt(lastname) {
+
+    async typelastnameInputtxt(page, lastname) {
         await page.fill(this.elements.lastnameInputtxt(), '');
         await page.fill(this.elements.lastnameInputtxt(), lastname);
     }
-    async typephoneInputtxt(phone) {       
+
+    async typephoneInputtxt(page, phone) {
         await page.fill(this.elements.phoneInputtxt(), '');
         await page.fill(this.elements.phoneInputtxt(), phone);
     }
-    async typeemailInputtxt(email) {
+
+    async typeemailInputtxt(page, email) {
         await page.fill(this.elements.emailInputtxt(), '');
         await page.fill(this.elements.emailInputtxt(), email);
     }
-    async getalertmessage() {        
-        return await page.locator(this.elements.alertmessage()).textContent();  
+
+    async getalertmessage(page) {
+        return await page.locator(this.elements.alertmessage()).textContent();
     }
-    async getbookingconfirmedmessage() {        
-        return await page.locator(this.elements.bookingconfirmedmessage()).textContent(); 
+
+    async getbookingconfirmedmessage(page) {
+        return await page.locator(this.elements.bookingconfirmedmessage()).textContent();
     }
-    async getbookeddates() {        
-        return await page.locator(this.elements.bookeddates()).textContent(); 
+
+    async getbookeddates(page) {
+        return await page.locator(this.elements.bookeddates()).textContent();
     }
 }
 
-module.exports = {
-  reservationPage
-};
+module.exports = { reservationPage };

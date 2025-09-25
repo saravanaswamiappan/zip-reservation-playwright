@@ -4,21 +4,25 @@
   "description": "Automation for Zip",
   "main": "index.js",
   "scripts": {
-    "test:zipreservation": "cucumber-js features\\reservation\\reservation.feature --format json:support\\reports\\cucumber-report.json",
-    "report:html" : "node cucumber-html-reporter.js"
+    "test:zipreservation": "cucumber-js features\\\\reservation\\\\reservation.feature --format json:support\\\\reports\\\\cucumber-report.json",
+    "report:html": "node cucumber-html-reporter.js",
+    "bddgen": "npx bddgen",
+    "test:bdd": "npx playwright test",
+    "test:bdd-headed": "npx playwright test --headed"
   },
   "keywords": [],
   "author": "Saravana",
   "license": "ISC",
   "dependencies": {
-    "@cucumber/cucumber": "11.3.0",
-    "@playwright/test": "1.53.0",
+    "@cucumber/gherkin": "28.0.0",
     "@faker-js/faker": "^8.4.1",
-    "playwright": "1.53.0",
-    
-    "dayjs": "1.11.18"
+    "@playwright/test": "1.53.0",
+    "cucumber-html-reporter": "^7.1.1",
+    "cucumber-pretty": "6.0.1",
+    "dayjs": "^1.11.18",
+    "multiple-cucumber-html-reporter": "3.6.2"
   },
   "devDependencies": {
-    "cucumber-html-reporter": "^7.1.1"
+    "playwright-bdd": "^8.4.1"
   }
 }
