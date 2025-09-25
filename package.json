@@ -8,7 +8,8 @@
     "report:html": "node cucumber-html-reporter.js",
     "bddgen": "npx bddgen",
     "test:bdd": "npx playwright test",
-    "test:bdd-headed": "npx playwright test --headed"
+    "test:bdd-headed": "npx playwright test --headed",
+    "start-playwright": "npx playwright test --ui"
   },
   "keywords": [],
   "author": "Saravana",
