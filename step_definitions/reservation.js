@@ -14,19 +14,19 @@ const Reservationpage = new reservationPage();
 let numberofrooms = 0;
 
 Given('User lands on Home page', async ({ page })  => {
-    await Homepage.open('https://your-url.com', this.page);
+    await Homepage.open('https://your-url.com', page);
 });
 
 When('Room listing is displayed', async ({ page })  => {
-    numberofrooms = await Homepage.getroomscontainercount(this.page);
+    numberofrooms = await Homepage.getroomscontainercount(page);
 });
 
 Then('There should be atleast one room without TV feature', async ({ page })  => {
     let numberofroomswithtv = 0;
     for (let i = 1; i <= numberofrooms; i++) {
-        const featurecount = await Homepage.getroomfeaturesnthcount(i, this.page);
+        const featurecount = await Homepage.getroomfeaturesnthcount(i, page);
         for (let j = 1; j <= featurecount; j++) {
-            let featureeach = await Homepage.getroomfeaturesntheach(i, j, this.page);
+            let featureeach = await Homepage.getroomfeaturesntheach(i, j, page);
             if (featureeach.includes('TV')) numberofroomswithtv += 1;
         }
     }
@@ -34,29 +34,29 @@ Then('There should be atleast one room without TV feature', async ({ page })  =>
 });
 
 When('Enter dates and click book now', async ({ page })  => {
-    await Homepage.typecheckinInputTxt('2025-10-01', this.page);
-    await Homepage.typecheckoutInputTxt('2025-10-05', this.page);
-    await Homepage.clickbooknownth(1, this.page);
-    await Reservationpage.clickreservenowBtn(this.page);
+    await Homepage.typecheckinInputTxt('2025-10-01', page);
+    await Homepage.typecheckoutInputTxt('2025-10-05', page);
+    await Homepage.clickbooknownth(1, page);
+    await Reservationpage.clickreservenowBtn(page);
 });
 
 When('reservation is tried with short firstname', async ({ page })  => {
-    await Reservationpage.typefirstnameInputtxt('Jo', this.page);
-    await Reservationpage.clickreservenowconfirmBtn(this.page);
+    await Reservationpage.typefirstnameInputtxt('Jo', page);
+    await Reservationpage.clickreservenowconfirmBtn(page);
 });
 
 Then('appropriate error message is thrown for firstname', async ({ page })  => {
-    expect(await Reservationpage.getalertmessage(this.page)).toEqual('size must be between 3 and 18');
+    expect(await Reservationpage.getalertmessage(page)).toEqual('size must be between 3 and 18');
 });
 
 When('reservation is tried with valid details', async ({ page })  => {
-    await Reservationpage.typefirstnameInputtxt('John', this.page);
-    await Reservationpage.typelastnameInputtxt('Doe', this.page);
-    await Reservationpage.typephoneInputtxt('1234567890', this.page);
-    await Reservationpage.typeemailInputtxt('john.doe@example.com', this.page);
-    await Reservationpage.clickreservenowconfirmBtn(this.page);
+    await Reservationpage.typefirstnameInputtxt('John', page);
+    await Reservationpage.typelastnameInputtxt('Doe', page);
+    await Reservationpage.typephoneInputtxt('1234567890', page);
+    await Reservationpage.typeemailInputtxt('john.doe@example.com', page);
+    await Reservationpage.clickreservenowconfirmBtn(page);
 });
 
 Then('reservation should be booked successfully', async ({ page })  => {
-    expect(await Reservationpage.getbookingconfirmedmessage(this.page)).toEqual('Booking Confirmed');
+    expect(await Reservationpage.getbookingconfirmedmessage(page)).toEqual('Booking Confirmed');
 });
