@@ -1,7 +1,7 @@
-const { test as base } = require('@playwright/test');
+const { test } = require('@playwright/test');
 const { chromium } = require('playwright');
 
-const test = base.extend({
+const customTest = test.extend({
     page: async ({ }, use) => {
         const browser = await chromium.launch({ headless: false });
         const context = await browser.newContext({
@@ -11,8 +11,7 @@ const test = base.extend({
             }
         });
         const page = await context.newPage();
-
-        // Make page globally available (for existing step definitions)
+   
         global.page = page;
 
         await use(page);
@@ -22,4 +21,4 @@ const test = base.extend({
     },
 });
 
-module.exports = { test };
+module.exports = { test: customTest };

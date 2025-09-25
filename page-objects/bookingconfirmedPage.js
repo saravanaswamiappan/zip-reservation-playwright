@@ -1,9 +1,8 @@
 class bookingconfirmedPage {
     constructor() {
-        this.page = null; // Will hold the Playwright page instance
+        this.page = null; 
     }
 
-    // Inject the Playwright page
     setPage(page) {
         this.page = page;
     }
